@@ -185,6 +185,9 @@ def no_text(message):
         bot.send_message(message.chat.id, text='Тогда отправь текст, который будет снизу, иначе пропиши /no_text\n'
                                                '\nНапример\n\n')
     elif flag == "text_down":
+        pic_name = cur.execute(f'''SELECT pic FROM users_mem WHERE id = {message.chat.id}''').fetchone()[0]
+        cur.execute(f'''UPDATE users_mem SET mem = '{pic_name}' WHERE id = {message.chat.id} ''')
+        con.commit()
         send_mem(message.chat.id)
 
 
